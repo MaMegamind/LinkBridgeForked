@@ -1,14 +1,15 @@
 import 'package:link_bridge/link_decoding.dart';
 import 'package:flutter/services.dart';
 
-class DeepLink {
+class LinkBridge {
   static final String domainName = "https://apiv2.vooomapp.com";
 
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 
   Future<Uri?> init() async {
     try {
-      String? initialLink = await _channel.invokeMethod<String>('onInitialLink');
+      String? initialLink =
+          await _channel.invokeMethod<String>('onInitialLink');
       initialLink ??= await getInstallLink();
 
       if (initialLink != null) {
@@ -46,7 +47,8 @@ class DeepLink {
     String encodedParameters =
         link.replaceAll("$domainName/link/", "").split("/")[1];
 
-    Map<String, dynamic> decodedParameters = await LinkDecoding().getInfo(encodedParameters);
+    Map<String, dynamic> decodedParameters =
+        await LinkDecoding().getInfo(encodedParameters);
 
     decodedLink =
         "$domainName/link/$appName?${Uri(queryParameters: decodedParameters).query}";

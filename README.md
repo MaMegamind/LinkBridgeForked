@@ -1,15 +1,25 @@
 # link_bridge
 
-A new Flutter plugin project.
+A Flutter plugin to support **deep linking** and **deferred deep linking** for both **Android** and **iOS**.
+
+---
+
+## Features
+
+- Handles deep links through custom URL schemes and universal links.
+- Supports **deferred deep links** (e.g., links that open the app after installation).
+- Platform support:
+    - ✅ Android
+    - ✅ iOS
+
+---
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Add `link_bridge` to your `pubspec.yaml`:
 
+```yaml
+dependencies:
+  link_bridge: ^0.0.3
