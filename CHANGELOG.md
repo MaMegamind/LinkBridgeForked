@@ -1,2 +1,2 @@
-## [1.0.6] - Fix analysis pending issue
+## [1.0.7] - Fix analysis pending issue
 - Minor update to trigger fresh pub.dev analysis

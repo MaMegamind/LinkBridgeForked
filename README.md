@@ -20,14 +20,18 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: 1.0.4
-📦 Platform Setup
-🟢 Android
-Edit android/app/src/main/AndroidManifest.xml:
+  link_bridge: 1.0.7
+```
 
-xml
-Copy
-Edit
+---
+
+## 📦 Platform Setup
+
+### 🟢 Android
+
+Edit `android/app/src/main/AndroidManifest.xml`:
+
+```xml
 <!-- Disable Flutter's default deep linking -->
 <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
 
@@ -41,58 +45,62 @@ Edit
         android:host="linkbridge.vooomapp.com"
         android:pathPrefix="/link/${your_app_name}" />
 </intent-filter>
-Replace ${your_app_name} with your actual app name or identifier.
+```
 
-🍏 iOS
-Open your project in Xcode
+> Replace `${your_app_name}` with your actual app name or identifier.
 
-Go to Signing & Capabilities → Add Associated Domains
+---
 
-Add the following domain for all build configurations (Debug, Release, Profile):
+### 🍏 iOS
 
-css
-Copy
-Edit
+1. Open your project in **Xcode**
+2. Go to **Signing & Capabilities** → Add **Associated Domains**
+3. Add the following domain for all build configurations (Debug, Release, Profile):
+
+```
 applinks:linkbridge.vooomapp.com
-Then in your Info.plist:
+```
 
-xml
-Copy
-Edit
+4. Then in your `Info.plist`:
+
+```xml
 <key>FlutterDeepLinkingEnabled</key>
 <false/>
 <key>AssociatedDomains</key>
 <array>
     <string>applinks:linkbridge.vooomapp.com</string>
 </array>
-💻 Dart API
+```
+
+---
+
+## 💻 Dart API
+
 Import the plugin:
 
-dart
-Copy
-Edit
+```dart
 import 'package:link_bridge/link_bridge.dart';
-🔍 Get deep link on app launch:
-dart
-Copy
-Edit
+```
+
+### 🔍 Get deep link on app launch:
+
+```dart
 Uri? deepLink = await LinkBridge().init();
-📡 Listen for deep links in the foreground:
-dart
-Copy
-Edit
+```
+
+### 📡 Listen for deep links in the foreground:
+
+```dart
 LinkBridge().listen((Uri? deepLink) async {
   print('New deep link: $deepLink');
 });
-📌 Notes
-🧠 Works out of the box — no need for Firebase or extra setup
+```
 
-📥 Handles install → open flow (deferred links)
+---
 
-📊 Includes analytics for tracking link usage
+## 📌 Notes
 
-👯 Fully supports App Links (Android) and Universal Links (iOS)
-
-vbnet
-Copy
-Edit
+- 🧠 Works out of the box — no need for Firebase or extra setup
+- 📥 Handles install → open flow (deferred links)
+- 📊 Includes analytics for tracking link usage
+- 👯 Fully supports App Links (Android) and Universal Links (iOS)
