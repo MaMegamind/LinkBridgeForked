@@ -1,12 +1,12 @@
 import Flutter
 import UIKit
 
-public class DeepLink {
-  static public let shared = DeepLinkPlugin()
+public class LinkBridge {
+  static public let shared = LinkBridgePlugin()
   private init() {}
 }
 
-public final class DeepLinkPlugin: NSObject, FlutterPlugin {
+public final class LinkBridgePlugin: NSObject, FlutterPlugin {
   private var methodChannel: FlutterMethodChannel?
 
   private var initialLink: String?
@@ -15,7 +15,7 @@ public final class DeepLinkPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let methodChannel = FlutterMethodChannel(name: "deeplink_channel", binaryMessenger: registrar.messenger())
 
-    let instance = DeepLink.shared
+    let instance = LinkBridge.shared
     instance.methodChannel = methodChannel
 
     registrar.addMethodCallDelegate(instance, channel: methodChannel)
