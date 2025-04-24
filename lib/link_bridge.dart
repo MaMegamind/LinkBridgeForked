@@ -2,7 +2,7 @@ import 'package:link_bridge/link_decoding.dart';
 import 'package:flutter/services.dart';
 
 class LinkBridge {
-  static final String domainName = "https://jenak-backend-1ifo.onrender.com";
+  static final String domainName = "https://linkbridge.vooomapp.com";
 
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 
