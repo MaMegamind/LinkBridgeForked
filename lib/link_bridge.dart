@@ -1,5 +1,7 @@
-import 'package:link_bridge/link_decoding.dart';
+import 'dart:io';
+
 import 'package:flutter/services.dart';
+import 'package:link_bridge/link_decoding.dart';
 
 class LinkBridge {
   static final String domainName = "https://linkbridge.vooomapp.com";
@@ -10,7 +12,12 @@ class LinkBridge {
     try {
       String? initialLink =
           await _channel.invokeMethod<String>('onInitialLink');
-      initialLink ??= await getInstallLink();
+
+      if (Platform.isAndroid) {
+        initialLink ??= await getInstallLinkAndroid();
+      } else if (Platform.isIOS) {
+        initialLink ??= await getInstallLinkIos();
+      }
 
       if (initialLink != null) {
         initialLink = await decodeLink(initialLink);
@@ -21,12 +28,24 @@ class LinkBridge {
     }
   }
 
-  Future<String?> getInstallLink() async {
+  Future<String?> getInstallLinkAndroid() async {
     try {
       return await _channel.invokeMethod<String>('getInstallReferrer');
     } catch (e) {
       return null;
     }
+  }
+
+  Future<String?> getInstallLinkIos() async {
+    String? link;
+    try {
+      ClipboardData? clipboardData = await Clipboard.getData('text/plain');
+      if (clipboardData != null) {
+        link = clipboardData.text;
+        await Clipboard.setData(ClipboardData(text: ""));
+      }
+    } catch (_) {}
+    return link;
   }
 
   Future<void> listen(Function(Uri link) onLinkReceived) async {
