@@ -1,25 +1,26 @@
-🔗 link_bridge
-A lightweight Flutter plugin to handle deep linking and deferred links on Android and iOS – a simple, Firebase-free alternative to Dynamic Links.
+# 🔗 link_bridge
 
-✅ Features
-🔗 Deep linking on Android & iOS (App Links & Universal Links)
+A lightweight Flutter plugin to handle **deep linking** and **deferred links** on Android and iOS – a simple, Firebase-free alternative to Dynamic Links.
 
-⏳ Deferred deep linking (handle links even if app is installed after the click)
+---
 
-📈 Built-in analytics for links
+## ✅ Features
 
-🛠 Zero additional configuration required
+- 🔗 Deep linking on Android & iOS (App Links & Universal Links)
+- ⏳ Deferred deep linking (handle links even if the app is installed after the click)
+- 📈 Built-in analytics for links
+- 🛠 Zero additional configuration required
+- ⚙️ Works with `https://linkbridge.vooomapp.com`
 
-⚙️ Works with https://linkbridge.vooomapp.com
+---
 
-📲 Installation
-Add to your pubspec.yaml:
+## 📲 Installation
 
-yaml
-Copy
-Edit
+Add to your `pubspec.yaml`:
+
+```yaml
 dependencies:
-link_bridge: 1.0.4
+  link_bridge: 1.0.4
 📦 Platform Setup
 🟢 Android
 Edit android/app/src/main/AndroidManifest.xml:
@@ -27,8 +28,10 @@ Edit android/app/src/main/AndroidManifest.xml:
 xml
 Copy
 Edit
+<!-- Disable Flutter's default deep linking -->
 <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
 
+<!-- App Link support -->
 <intent-filter android:autoVerify="true">
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
@@ -41,17 +44,17 @@ Edit
 Replace ${your_app_name} with your actual app name or identifier.
 
 🍏 iOS
-Open your project in Xcode.
+Open your project in Xcode
 
-Under Signing & Capabilities, add Associated Domains for all build configurations (Debug, Release, and Profile).
+Go to Signing & Capabilities → Add Associated Domains
 
-Add the following domain:
+Add the following domain for all build configurations (Debug, Release, Profile):
 
 css
 Copy
 Edit
 applinks:linkbridge.vooomapp.com
-In your Info.plist:
+Then in your Info.plist:
 
 xml
 Copy
@@ -60,7 +63,7 @@ Edit
 <false/>
 <key>AssociatedDomains</key>
 <array>
-<string>applinks:linkbridge.vooomapp.com</string>
+    <string>applinks:linkbridge.vooomapp.com</string>
 </array>
 💻 Dart API
 Import the plugin:
@@ -79,14 +82,17 @@ dart
 Copy
 Edit
 LinkBridge().listen((Uri? deepLink) async {
-print('New deep link: $deepLink');
+  print('New deep link: $deepLink');
 });
 📌 Notes
-🧠 Works out of the box — no need for Firebase or extra setup.
+🧠 Works out of the box — no need for Firebase or extra setup
 
-📥 Handles install → open flow (deferred links).
+📥 Handles install → open flow (deferred links)
 
-📊 Includes analytics for tracking link usage.
+📊 Includes analytics for tracking link usage
 
-👯 Fully supports App Links (Android) and Universal Links (iOS).
+👯 Fully supports App Links (Android) and Universal Links (iOS)
 
+vbnet
+Copy
+Edit
