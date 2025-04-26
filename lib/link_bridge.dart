@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:link_bridge/link_decoding.dart';
 
 class LinkBridge {
-  static final String domainName = "https://linkbridge.vooomapp.com";
+  static final String domainName = "https://linkbridge.chimeratechsolutions.com";
 
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 

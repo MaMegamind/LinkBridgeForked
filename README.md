@@ -10,7 +10,7 @@ A lightweight Flutter plugin to handle **deep linking** and **deferred links** o
 - ⏳ Deferred deep linking (handle links even if the app is installed after the click)
 - 📈 Built-in analytics for links
 - 🛠 Zero additional configuration required
-- ⚙️ Works with `https://linkbridge.vooomapp.com`
+- ⚙️ Works with `https://linkbridge.chimeratechsolutions.com`
 
 ---
 
@@ -20,7 +20,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: 1.1.0
+  link_bridge: 1.1.1
 ```
 
 ---
@@ -42,7 +42,7 @@ Edit `android/app/src/main/AndroidManifest.xml`:
     <category android:name="android.intent.category.BROWSABLE" />
     <data
         android:scheme="https"
-        android:host="linkbridge.vooomapp.com"
+        android:host="linkbridge.chimeratechsolutions.com"
         android:pathPrefix="/link/${your_app_name}" />
 </intent-filter>
 ```
@@ -58,7 +58,7 @@ Edit `android/app/src/main/AndroidManifest.xml`:
 3. Add the following domain for all build configurations (Debug, Release, Profile):
 
 ```
-applinks:linkbridge.vooomapp.com
+applinks:linkbridge.chimeratechsolutions.com
 ```
 
 4. Then in your `Info.plist`:
@@ -68,7 +68,7 @@ applinks:linkbridge.vooomapp.com
 <false/>
 <key>AssociatedDomains</key>
 <array>
-    <string>applinks:linkbridge.vooomapp.com</string>
+    <string><applinks:linkbridge class="chimeratechsolutions"></applinks:linkbridge>.com</string>
 </array>
 ```
 
