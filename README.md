@@ -20,7 +20,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: 1.1.1
+  link_bridge: 1.1.2
 ```
 
 ---
@@ -42,8 +42,8 @@ Edit `android/app/src/main/AndroidManifest.xml`:
     <category android:name="android.intent.category.BROWSABLE" />
     <data
         android:scheme="https"
-        android:host="linkbridge.chimeratechsolutions.com"
-        android:pathPrefix="/link/${your_app_name}" />
+        android:host="${your_app_name}.chimeratechsolutions.com"
+        android:pathPrefix="/link" />
 </intent-filter>
 ```
 
@@ -68,7 +68,7 @@ applinks:linkbridge.chimeratechsolutions.com
 <false/>
 <key>AssociatedDomains</key>
 <array>
-    <string><applinks:linkbridge class="chimeratechsolutions"></applinks:linkbridge>.com</string>
+    <string>applinks:${your_app_name}.chimeratechsolutions.com</string>
 </array>
 ```
 
