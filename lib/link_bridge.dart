@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:link_bridge/link_decoding.dart';
 
 class LinkBridge {
-  static final String domainName = "https://linkbridge.chimeratechsolutions.com";
 
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 
@@ -60,17 +59,12 @@ class LinkBridge {
   }
 
   Future<String> decodeLink(String link) async {
-    String decodedLink;
+    String linkCode = link.split("/")[4];
+    String mainLink = link.replaceAll("/$linkCode", "");
 
-    String appName = link.replaceAll("$domainName/link/", "").split("/")[0];
-    String encodedParameters =
-        link.replaceAll("$domainName/link/", "").split("/")[1];
+    Map<String, dynamic> decodedParameters = await LinkDecoding().getInfo(linkCode);
 
-    Map<String, dynamic> decodedParameters =
-        await LinkDecoding().getInfo(encodedParameters);
-
-    decodedLink =
-        "$domainName/link/$appName?${Uri(queryParameters: decodedParameters).query}";
+    String decodedLink = "$mainLink?${Uri(queryParameters: decodedParameters).query}";
 
     return decodedLink;
   }

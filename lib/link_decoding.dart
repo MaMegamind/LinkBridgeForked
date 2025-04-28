@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'link_bridge.dart';
-
 class LinkDecoding {
   Future<Map<String, dynamic>> getInfo(String linkId) async {
     Map<String, dynamic> info = {};
 
     final response = await http.get(
-      Uri.parse("${LinkBridge.domainName}/link_info/$linkId"),
+      Uri.parse("https://linkbridge.chimeratechsolutions.com/link_info/$linkId"),
     );
 
     info = jsonDecode(response.body)['info'];
