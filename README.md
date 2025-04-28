@@ -1,27 +1,48 @@
 # 🔗 link_bridge
 
-A lightweight Flutter plugin to handle **deep linking** and **deferred links** on Android and iOS – a simple, Firebase-free alternative to Dynamic Links.
+> **⚡ To use this plugin, you must [create an account and get your App Key here](https://linkbridge.chimeratechsolutions.com/account).**
+
+A lightweight Flutter plugin for **deep linking** and **deferred deep linking** on Android and iOS — a simple, Firebase-free alternative to Dynamic Links.
 
 ---
 
 ## ✅ Features
 
 - 🔗 Deep linking on Android & iOS (App Links & Universal Links)
-- ⏳ Deferred deep linking (handle links even if the app is installed after the click)
-- 📈 Built-in analytics for links
-- 🛠 Zero additional configuration required
-- ⚙️ Works with `https://linkbridge.chimeratechsolutions.com`
+- ⏳ Deferred deep linking (works even if app installed after clicking the link)
+- 📈 Built-in link analytics
+- 🛠 Zero additional configuration beyond platform files
+- ⚙️ Integrated with `https://linkbridge.chimeratechsolutions.com`
 
 ---
 
 ## 📲 Installation
 
-Add to your `pubspec.yaml`:
+Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: 1.1.4
+  link_bridge: ^1.1.5
 ```
+
+Then run:
+
+```bash
+flutter pub get
+```
+
+---
+
+## 🚀 Getting Started
+
+Before using the plugin, you must create an account and get your App Key:
+
+1. Go to [linkbridge.chimeratechsolutions.com/account](https://linkbridge.chimeratechsolutions.com/account).
+2. Create a free account.
+3. Add your app name.
+4. Copy your **App Key**.
+
+You will need this key when generating the DeepLink.
 
 ---
 
@@ -46,22 +67,21 @@ Edit `android/app/src/main/AndroidManifest.xml`:
         android:pathPrefix="/link" />
 </intent-filter>
 ```
-
-> Replace `${your_app_name}` with your actual app name or identifier.
+> 🔔 Replace `${your_app_name}` with your actual app name or identifier.
 
 ---
 
 ### 🍏 iOS
 
-1. Open your project in **Xcode**
-2. Go to **Signing & Capabilities** → Add **Associated Domains**
-3. Add the following domain for all build configurations (Debug, Release, Profile):
+1. Open your project in **Xcode**.
+2. Go to **Signing & Capabilities** → Add **Associated Domains**.
+3. Add:
 
 ```
 applinks:${your_app_name}.chimeratechsolutions.com
 ```
 
-4. Then in your `Info.plist`:
+4. Edit your `Info.plist`:
 
 ```xml
 <key>FlutterDeepLinkingEnabled</key>
@@ -74,7 +94,7 @@ applinks:${your_app_name}.chimeratechsolutions.com
 
 ---
 
-## 💻 Dart API
+## 💻 Usage
 
 Import the plugin:
 
@@ -82,13 +102,13 @@ Import the plugin:
 import 'package:link_bridge/link_bridge.dart';
 ```
 
-### 🔍 Get deep link on app launch:
+### 🔍 Initialize with your App Key
 
 ```dart
 Uri? deepLink = await LinkBridge().init();
 ```
 
-### 📡 Listen for deep links in the foreground:
+### 📡 Listen for deep links:
 
 ```dart
 LinkBridge().listen((Uri? deepLink) async {
@@ -100,7 +120,14 @@ LinkBridge().listen((Uri? deepLink) async {
 
 ## 📌 Notes
 
-- 🧠 Works out of the box — no need for Firebase or extra setup
-- 📥 Handles install → open flow (deferred links)
-- 📊 Includes analytics for tracking link usage
-- 👯 Fully supports App Links (Android) and Universal Links (iOS)
+- 🧠 Works out of the box — no Firebase or 3rd-party setup needed
+- 📥 Supports install → open flows (deferred links)
+- 📊 Built-in lightweight analytics
+- 👯 Full support for App Links (Android) and Universal Links (iOS)
+
+---
+
+# ⚠ Important
+
+- You **must initialize** the plugin with a valid **App Key** for it to work.
+- If no key is provided, the plugin will not handle links.
