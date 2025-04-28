@@ -58,7 +58,7 @@ Edit `android/app/src/main/AndroidManifest.xml`:
 3. Add the following domain for all build configurations (Debug, Release, Profile):
 
 ```
-applinks:linkbridge.chimeratechsolutions.com
+applinks:${your_app_name}.chimeratechsolutions.com
 ```
 
 4. Then in your `Info.plist`:
