@@ -22,7 +22,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: ^1.1.8
+  link_bridge: ^1.1.9
 ```
 
 Then run:
