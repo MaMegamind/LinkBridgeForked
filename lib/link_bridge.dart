@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform, kIsWeb;
 
 import 'package:flutter/services.dart';
 import 'package:link_bridge/link_decoding.dart';
@@ -15,9 +16,9 @@ class LinkBridge {
           await _channel.invokeMethod<String>('onInitialLink');
 
       /// Check platform to get install link
-      if (Platform.isAndroid) {
+      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
         initialLink ??= await getInstallLinkAndroid();
-      } else if (Platform.isIOS) {
+      } else if (!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS) {
         initialLink ??= await getInstallLinkIos();
       }
 
