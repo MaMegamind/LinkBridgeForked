@@ -5,7 +5,6 @@ import 'package:link_bridge/link_decoding.dart';
 
 /// A bridge class to handle deep link decoding and install link resolution.
 class LinkBridge {
-
   /// The method channel used to communicate with platform-specific code.
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 
@@ -15,12 +14,14 @@ class LinkBridge {
       String? initialLink =
           await _channel.invokeMethod<String>('onInitialLink');
 
+      /// Check platform to get install link
       if (Platform.isAndroid) {
         initialLink ??= await getInstallLinkAndroid();
       } else if (Platform.isIOS) {
         initialLink ??= await getInstallLinkIos();
       }
 
+      /// Decode deeplink
       if (initialLink != null) {
         initialLink = await decodeLink(initialLink);
       }
@@ -69,10 +70,7 @@ class LinkBridge {
     String linkCode = link.split("/")[4];
     String mainLink = link.replaceAll("/$linkCode", "");
 
-    Map<String, dynamic> decodedParameters = await LinkDecoding().getInfo(linkCode);
-
-    String decodedLink = "$mainLink?${Uri(queryParameters: decodedParameters).query}";
-
-    return decodedLink;
+    /// Get link info by link id
+    return "$mainLink?${Uri(queryParameters: (await LinkDecoding().getInfo(linkCode))).query}";
   }
 }

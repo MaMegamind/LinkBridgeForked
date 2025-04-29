@@ -19,7 +19,8 @@ void main() {
 
   test('Test onInitialLink method', () async {
     // Call the method and check the response
-    final String? initialLink = await channel.invokeMethod<String>('onInitialLink');
+    final String? initialLink =
+        await channel.invokeMethod<String>('onInitialLink');
 
     // Verify that the response is as expected
     expect(initialLink, 'https://example.com');
