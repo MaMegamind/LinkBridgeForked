@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:link_bridge/link_decoding.dart';
 
+/// A bridge class to handle deep link decoding and install link resolution.
 class LinkBridge {
 
+  /// The method channel used to communicate with platform-specific code.
   final MethodChannel _channel = const MethodChannel('deeplink_channel');
 
+  /// A function to fetch deeplink once
   Future<Uri?> init() async {
     try {
       String? initialLink =
@@ -27,6 +30,7 @@ class LinkBridge {
     }
   }
 
+  /// A function to fetch deeplink after installing for Android
   Future<String?> getInstallLinkAndroid() async {
     try {
       return await _channel.invokeMethod<String>('getInstallReferrer');
@@ -35,6 +39,7 @@ class LinkBridge {
     }
   }
 
+  /// A function to fetch deeplink after installing for IOS
   Future<String?> getInstallLinkIos() async {
     String? link;
     try {
@@ -47,6 +52,7 @@ class LinkBridge {
     return link;
   }
 
+  /// A function to fetch deeplink on opening the link
   Future<void> listen(Function(Uri link) onLinkReceived) async {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'onLinkReceived') {
@@ -58,6 +64,7 @@ class LinkBridge {
     });
   }
 
+  /// A function to decode link info
   Future<String> decodeLink(String link) async {
     String linkCode = link.split("/")[4];
     String mainLink = link.replaceAll("/$linkCode", "");

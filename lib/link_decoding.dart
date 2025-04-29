@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+/// Class for decode link info
 class LinkDecoding {
+
+  /// decode link info function
   Future<Map<String, dynamic>> getInfo(String linkId) async {
     Map<String, dynamic> info = {};
 
