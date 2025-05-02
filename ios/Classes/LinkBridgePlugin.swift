@@ -22,13 +22,24 @@ public final class LinkBridgePlugin: NSObject, FlutterPlugin {
     registrar.addApplicationDelegate(instance)
   }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-      if(call.method == "onInitialLink"){
-       result(initialLink)
-      }else{
-      result(FlutterMethodNotImplemented)
-      }
-  }
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        switch call.method {
+        case "onInitialLink":
+            result(initialLink)
+
+        case "getLinkInfo":
+            guard let args = call.arguments as? [String: Any],
+                  let linkId = args["linkId"] as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Missing linkId", details: nil))
+                return
+            }
+
+            fetchLinkInfo(linkId: linkId, result: result)
+
+        default:
+            result(FlutterMethodNotImplemented)
+        }
+    }
 
 
   public func application(
@@ -52,4 +63,30 @@ public final class LinkBridgePlugin: NSObject, FlutterPlugin {
 
     methodChannel?.invokeMethod("onLinkReceived", arguments: link)
   }
+    
+    private func fetchLinkInfo(linkId: String, result: @escaping FlutterResult) {
+        let urlString = "https://linkbridge.chimeratechsolutions.com/link_info/\(linkId)"
+        guard let url = URL(string: urlString) else {
+            result(FlutterError(code: "INVALID_URL", message: "Invalid URL", details: nil))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                result(FlutterError(code: "HTTP_ERROR", message: error.localizedDescription, details: nil))
+                return
+            }
+
+            guard let data = data,
+                  let responseString = String(data: data, encoding: .utf8) else {
+                result(FlutterError(code: "DATA_ERROR", message: "Invalid response", details: nil))
+                return
+            }
+
+            result(responseString)
+        }
+
+        task.resume()
+    }
+
 }

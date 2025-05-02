@@ -36,6 +36,25 @@ class LinkBridgePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Activit
             }
         }
 
+      "getLinkInfo" -> {
+        val linkId = call.argument<String>("linkId")
+        if (linkId == null) {
+          result.error("INVALID_ARGUMENT", "Missing linkId", null)
+          return
+        }
+
+        HttpReq().getLinkInfoAsync(linkId) { response ->
+          activity?.runOnUiThread {
+            if (response != null) {
+              result.success(response)
+            } else {
+              result.error("HTTP_ERROR", "Failed to fetch link info", null)
+            }
+          }
+        }
+
+      }
+
       else -> result.notImplemented()
     }
   }
