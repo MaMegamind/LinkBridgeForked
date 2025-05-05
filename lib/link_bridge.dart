@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, TargetPlatform, kIsWeb;
-
 import 'package:flutter/services.dart';
 import 'package:link_bridge/link_decoding.dart';
 
@@ -55,23 +54,34 @@ class LinkBridge {
   }
 
   /// A function to fetch deeplink on opening the link
-  Future<void> listen(Function(Uri link) onLinkReceived) async {
+  Future<void> listen(Function(Uri? link) onLinkReceived) async {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'onLinkReceived') {
         final link = call.arguments as String?;
         if (link != null) {
-          onLinkReceived(Uri.parse(await decodeLink(link)));
+          String? decodedLink = await decodeLink(link);
+          onLinkReceived(decodedLink == null ? null : Uri.parse(decodedLink));
         }
       }
     });
   }
 
   /// A function to decode link info
-  Future<String> decodeLink(String link) async {
+  Future<String?> decodeLink(String link) async {
     String linkCode = link.split("/")[4];
     String mainLink = link.replaceAll("/$linkCode", "");
 
+    /// Decode Link
+    Map<String, dynamic>? parameters;
+    try {
+      parameters = (await LinkDecoding().getInfo(linkCode))?['info'];
+    } catch (_) {
+      parameters = null;
+    }
+
     /// Get link info by link id
-    return "$mainLink?${Uri(queryParameters: (await LinkDecoding().getInfo(linkCode))).query}";
+    return parameters == null
+        ? null
+        : "$mainLink?${Uri(queryParameters: parameters).query}";
   }
 }
