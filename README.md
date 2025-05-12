@@ -1,6 +1,6 @@
 # 🔗 link_bridge
 
-> **⚡ To use this plugin, you must [create an account and get your App Key here](https://linkbridge.chimeratechsolutions.com/account).**
+> **⚡ To use this plugin, you must [create an account and get your App Key here](https://linkbridge.chimeratechsolutions.com/home).**
 
 A lightweight Flutter plugin for **deep linking** and **deferred deep linking** on Android and iOS — a simple, Firebase-free alternative to Dynamic Links.
 
@@ -22,7 +22,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  link_bridge: ^1.2.1
+  link_bridge: ^1.2.2
 ```
 
 Then run:
